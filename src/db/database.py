@@ -13,7 +13,8 @@ def save_properties(data, city):
             name=value.name,
             score=value.score,
             city=city,
-            stars_count=value.stars_count
+            stars_count=value.stars_count,
+            price=value.price,
         )
         hotels.append(h)
 

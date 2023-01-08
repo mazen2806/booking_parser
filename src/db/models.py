@@ -16,3 +16,4 @@ class HotelEntity(Base):
     score = Column(Float(5, 2), nullable=False)
     stars_count = Column(Integer, nullable=True)
     details_url = Column(String(500), nullable=True)
+    price = Column(Float(5, 2), nullable=True)

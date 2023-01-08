@@ -32,9 +32,11 @@ class PropertyParser:
             if hotel_squares_el:
                 h.stars_count = len(hotel_squares_el)
 
-            # hotel_price_el = el.select('span[data-testid="price-and-discounted-price"]')
-            # if hotel_price_el:
-            #     h.price = hotel_price_el[0].text
+            hotel_price_el = el.select('span[data-testid="price-and-discounted-price"]')
+            if hotel_price_el:
+                price_label = hotel_price_el[0].text.replace(',', '')
+                price = price_label.split('\xa0')[-1]
+                h.price = float(price)
 
             if hotel_stars_el:
                 attrs = hotel_href_el[0].attrs

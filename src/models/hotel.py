@@ -5,6 +5,7 @@ class Hotel:
         self._score = 0.0
         self._location = ''
         self._stars = 0
+        self._price = 0.0
 
     @property
     def name(self):
@@ -39,6 +40,14 @@ class Hotel:
     @stars_count.setter
     def stars_count(self, v):
         self._stars = v
+
+    @property
+    def price(self):
+        return self._price
+
+    @price.setter
+    def price(self, v):
+        self._price = v
 
     def __str__(self):
         return f"{self._name} : {self.details_url}"
