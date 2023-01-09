@@ -16,28 +16,18 @@ class BookingSearch:
 
     def get_browser_session(self):
         self.driver.get(self.site_url)
-        time.sleep(5)
 
     def start_search(self):
-        self.get_browser_session()
-        # self.accept_cookies()
-
-        self.set_city()
-        self.set_location()
-        time.sleep(3)
-        self.set_dates()
-        time.sleep(2)
-        self.set_adults_count()
-        self.search()
-        time.sleep(3)
-        # self.run_searching()
-        self.collect_data_by_page()
-        # self.driver.close()
+        step_methods = [self.get_browser_session, self.set_city, self.set_location, self.set_dates,
+                        self.set_adults_count, self.search, self.collect_data_by_page]
+        for step in step_methods:
+            step()
+            time.sleep(2)
+        self.driver.close()
 
     def set_city(self):
         ss_txt = self.driver.find_element(By.ID, 'ss')
         ss_txt.send_keys(self.city)
-        time.sleep(2)
 
     def set_location(self):
         location_items = self.driver.find_elements(By.CLASS_NAME, 'sb-autocomplete__item-with_photo')
@@ -57,18 +47,11 @@ class BookingSearch:
         time.sleep(5)
 
     def set_dates(self):
+        # TODO: select dates in the middle of the period
         datepicker_path = "//td[@role='gridcell']"
         datepicker = self.driver.find_elements(By.XPATH, datepicker_path)
         datepicker[30].click()
         datepicker[31].click()
-        time.sleep(2)
-
-    # def run_searching(self):
-    #     search_form = self.driver.find_element(By.XPATH, "//div[@data-testid='searchbox-layout-vertical']")
-    #     btns = search_form.find_elements(By.TAG_NAME, 'button')
-    #     search_btn = [btn for btn in btns if btn.text == 'Search']
-    #     search_btn[0].click()
-    #     time.sleep(1)
 
     def set_adults_count(self):
         adults_area = self.driver.find_element(By.CLASS_NAME, 'xp__guests')
@@ -76,7 +59,6 @@ class BookingSearch:
         time.sleep(1)
         adults_btn = self.driver.find_element(By.CLASS_NAME, 'bui-stepper__subtract-button')
         adults_btn.click()
-        time.sleep(1)
 
     def select_all_pages(self):
         pagination_elements = self.driver.find_elements(By.TAG_NAME, "ol")
